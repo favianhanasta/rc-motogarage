@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import NavbarComponent from './components/Navbar_comp';
+import AuthPage from './pages/AuthPage';
+import LandingPage from './pages/LandingPage';
+import ManajemenProduk from './pages/ManajemenProduk';
+import { loginAction } from './redux/action';
+import { productAction } from './redux/action';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      loading : true,
+     }
+  }
+
+  componentDidMount(){
+    this.keeplogin();
+    this.props.productAction();
+  }
+
+  keeplogin = async ()=>{
+  try {
+      let local = JSON.parse(localStorage.getItem('data'))
+      if(local){
+        let res = await this.props.loginAction(local.email,local.password)
+        console.log('lcl',res.success)
+        if(res.success){
+          this.setState({loading:false})
+        }
+      }else{
+        this.setState({loading:false})
+      }
+  }
+    catch (error){
+      console.log(error)
+    }
+  }
+  
+
+  render() { 
+    return ( 
+      <>
+      <NavbarComponent
+      loading={this.state.loading}/>
+      <Routes>
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="/auth-page" element={<AuthPage/>}/>
+        <Route path="/manajemen-produk" element={<ManajemenProduk/>}/>
+      </Routes>
+      </>
+     );
+  }
 }
 
-export default App;
+const mapTopProps =(state)=>{
+  return{
+    role: state.userReducer.role
+  }
+}
+ 
+export default  connect(mapTopProps,{loginAction,productAction})(App);
+

@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Admin-01",
+      "email": "admin@mail.com",
+      "password": "1234",
+      "role": "admin",
+      "status": "Active",
+      "cart": []
+    },
+    {
+      "username": "fav",
+      "email": "fav@mail.com",
+      "password": "123",
+      "status": "active",
+      "role": "user",
+      "cart": [],
+      "id": 2
+    },
+    {
+      "username": "budi",
+      "email": "budi@mail.com",
+      "password": "123",
+      "status": "active",
+      "role": "user",
+      "cart": [],
+      "id": 3
+    }
+  ],
+  "products": [
+    {
+      "id" : 1,
+      "nama":"AGV X3000 Black Matte",
+      "brand":"agv",
+      "kategori":"helm",
+      "deskripsi":"Material helm terbuat dari fiberglass, visor bawaan clear, dan chinstrap tipe Double D",
+      "harga":6100000,
+      "stock":[
+        {
+          "id":null,
+          "size": "M",
+          "qty": 3
+        },
+        {
+          "id":null,
+          "size" : "S",
+          "qty" : 2
+        }
+      ],
+      "image":[
+        "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/5/12/07e8457d-57f7-4605-aaeb-e1ca42444486.jpg.webp?ect=4g"
+      ]
+    }
+  ],
+  "userTransactions": [],
+  "article": []
+}

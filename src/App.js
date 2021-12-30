@@ -5,6 +5,7 @@ import NavbarComponent from './components/Navbar_comp';
 import AuthPage from './pages/AuthPage';
 import LandingPage from './pages/LandingPage';
 import ManajemenProduk from './pages/ManajemenProduk';
+import ProductPage from './pages/Product';
 import { loginAction } from './redux/action';
 import { productAction } from './redux/action';
 
@@ -49,6 +50,7 @@ class App extends React.Component {
         <Route path="/" element={<LandingPage/>}/>
         <Route path="/auth-page" element={<AuthPage/>}/>
         <Route path="/manajemen-produk" element={<ManajemenProduk/>}/>
+        <Route path="/produk" element={<ProductPage/>}/>
       </Routes>
       </>
      );

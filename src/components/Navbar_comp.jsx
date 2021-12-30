@@ -32,9 +32,11 @@ class NavbarComponent extends React.Component {
 
                     }
                     <NavItem >
-                        <NavLink href='' style={{color:'white'}}>
+                        <Link  to='/produk' style={{textDecoration:'none'}}>
+                        <NavLink style={{color:'white'}}>
                             Products
                         </NavLink>
+                        </Link>
                     </NavItem>
                     {
                         this.props.loading?
@@ -48,7 +50,7 @@ class NavbarComponent extends React.Component {
                             <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'white'}}>Hello, <a style={{color:'#ED1B24'}}>{this.props.username}</a></DropdownToggle>
                             {
                                 this.props.role=='user' ?
-                                <DropdownMenu end >
+                                <DropdownMenu end>
                                     <Link to='' style={{textDecoration:'none'}}>
                                         <DropdownItem >
                                             Transaksi Saya
@@ -61,7 +63,7 @@ class NavbarComponent extends React.Component {
                                     </Link>
                                 </DropdownMenu>
                                 :
-                                <DropdownMenu end >
+                                <DropdownMenu end>
                                     <Link to='' style={{textDecoration:'none'}}>
                                         <DropdownItem >
                                             Manajemen Transaksi

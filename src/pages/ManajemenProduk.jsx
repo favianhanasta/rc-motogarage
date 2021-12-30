@@ -2,17 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import ModalAddProduct from '../components/ModalAddProduct';
+import ModalDetail from '../components/ModalDetail';
 
 class ManajemenProduk extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            modalOpenAdd : false
-         }
+            modalOpenAdd : false,
+            openDetail : false,
+            detailProduk : {}
+        }
     }
 
 
-    
     printProductList = ()=>{
         return this.props.product.map((value,index)=>{
             return (
@@ -24,7 +26,7 @@ class ManajemenProduk extends React.Component {
                     <td>{value.kategori}</td>
                     <td> IDR {(value.harga).toLocaleString('id-ID')}</td>
                     <td style={{width:'10%'}}>
-                        <Button type="button" className="m-2" style={{width:100}}>
+                        <Button type="button" className="m-2" style={{width:100}} onClick={()=>this.detailToggle(value)}>
                             Detail
                         </Button>
                         <Button type="button" color="danger" className="m-2" style={{width:100}}>
@@ -40,18 +42,37 @@ class ManajemenProduk extends React.Component {
         this.setState({modalOpenAdd : !this.state.modalOpenAdd})
     }
 
+    detailToggle = (val) =>{
+        this.setState({
+            detailProduk : val,
+            openDetail : !this.state.openDetail,
+        })
+    }
     
-
+    btCancel = ()=>{
+        this.setState({
+            openDetail : !this.state.openDetail,
+        })
+    }
+    
+    
     render() { 
+        console.log('id',this.state.detailProduk)
         return ( 
             <div>
                 <ModalAddProduct
                     modalOpenAdd = {this.state.modalOpenAdd}
                     modalAddToggle = {this.modalAddToggle}
                 />
+                <ModalDetail
+                    detailToggle = {this.detailToggle}
+                    openDetail={this.state.openDetail}
+                    detailProduk={this.state.detailProduk}
+                    btCancel={this.btCancel}
+                />
                 <div className='text-center my-4'>
                 <h1>
-                    Manejemen Produk
+                    Manajemen Produk
                 </h1>
                 <p className='lead'>Admin Page</p>
                 </div>

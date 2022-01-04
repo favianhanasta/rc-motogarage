@@ -1,8 +1,11 @@
+import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'reactstrap';
 import ModalAddProduct from '../components/ModalAddProduct';
 import ModalDetail from '../components/ModalDetail';
+import { API_URL } from '../helper';
+import { productAction } from '../redux/action';
 
 class ManajemenProduk extends React.Component {
     constructor(props) {
@@ -29,7 +32,7 @@ class ManajemenProduk extends React.Component {
                         <Button type="button" className="m-2" style={{width:100}} onClick={()=>this.detailToggle(value)}>
                             Detail
                         </Button>
-                        <Button type="button" color="danger" className="m-2" style={{width:100}}>
+                        <Button type="button" color="danger" className="m-2" style={{width:100}} onClick={()=>this.btDelete(index)} >
                             Delete
                         </Button>
                     </td>
@@ -52,6 +55,16 @@ class ManajemenProduk extends React.Component {
     btCancel = ()=>{
         this.setState({
             openDetail : !this.state.openDetail,
+        })
+    }
+
+    btDelete = (index) =>{
+        let id =  this.props.product[index].id;
+        axios.delete(`${API_URL}/products/${id}`)
+        .then((res)=>{
+            this.props.productAction()
+        }).catch((err)=>{
+            console.log(err)
         })
     }
     
@@ -108,4 +121,4 @@ const mapToProps =(state)=>{
     }
 }
 
-export default connect(mapToProps) (ManajemenProduk);
+export default connect(mapToProps,{productAction}) (ManajemenProduk);

@@ -6,11 +6,15 @@ export const productAction = (nama,min,max)=>{
     return async (dispatch) =>{
         try{
             let res;
-            if(nama){
-                res=await axios.get(`${API_URL}/products?nama=${nama}`)
-            }else if(min,max){
+            if(nama && min && max){
+                res= await axios.get(`${API_URL}/products?harga_gte=${min}&harga_lte=${max}&brand=${nama}`)                
+            }
+            else if(min&&max){
                 res = await axios.get(`${API_URL}/products?harga_gte=${min}&harga_lte=${max}`)
-            }else{
+            }else if(nama){
+                res=await axios.get(`${API_URL}/products?brand=${nama}`)
+            }
+            else{
                 res= await axios.get(`${API_URL}/products`)
             }
             dispatch({

@@ -21,3 +21,25 @@ export const loginAction = (email,password) =>{
         }
     }
 }
+
+export const updateCart = (data,id)=>{
+    return async (dispatch) =>{
+        try{
+            let res=await axios.patch(`${API_URL}/users/${id}`,{cart:data})
+            dispatch({
+                type : 'UPDATE_CART',
+                payload  : res.data.cart
+            })
+            return {success : true}
+        }
+        catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const logoutAction=()=>{
+    return{
+        type:"LOGOUT"
+    }
+}

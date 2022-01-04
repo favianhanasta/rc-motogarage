@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown, Spinner } from 'reactstrap';
+import { Button, Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown, Spinner, Badge } from 'reactstrap';
 import logo from '../assets/rc_logo.png';
 import { connect } from 'react-redux';
+import { logoutAction } from '../redux/action';
 
 class NavbarComponent extends React.Component {
     constructor(props) {
@@ -10,8 +11,9 @@ class NavbarComponent extends React.Component {
         this.state = { 
             expand : false,
             toggle : false,
-         }
+         }     
     }
+    
     render() { 
         return (
             <div style={{backgroundColor:'black'}}>
@@ -25,9 +27,14 @@ class NavbarComponent extends React.Component {
                     {
                         this.props.role=='user'?
                         <NavItem >
+                            <Link  to='/cart-page' style={{textDecoration:'none'}}>
                             <NavLink href='' style={{color:'white'}}>
-                                Cart
+                                Cart {
+                                    this.props.cart.length > 0 &&
+                                    <Badge color='success'>{this.props.cart.length}</Badge>
+                                }
                             </NavLink>
+                            </Link>
                         </NavItem>:null
 
                     }
@@ -45,19 +52,22 @@ class NavbarComponent extends React.Component {
                         </Spinner>
                         :
                         this.props.username ?
-                        <NavItem className="align-items-center" style={{color:'red'}}>
+                        <NavItem className="align-items-center">
                             <UncontrolledDropdown>
                             <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'white'}}>Hello, <a style={{color:'#ED1B24'}}>{this.props.username}</a></DropdownToggle>
                             {
                                 this.props.role=='user' ?
                                 <DropdownMenu end>
-                                    <Link to='' style={{textDecoration:'none'}}>
+                                    <Link to='/detailTransaksi-page' style={{textDecoration:'none'}}>
                                         <DropdownItem >
                                             Transaksi Saya
                                         </DropdownItem>
                                     </Link>
-                                    <Link to='' style={{textDecoration:'none'}}>
-                                        <DropdownItem >
+                                    <Link to=''style={{textDecoration:'none'}}>
+                                        <DropdownItem onClick={()=>{
+                                                localStorage.removeItem("data");
+                                                this.props.logoutAction()
+                                                window.location.assign("http://localhost:3000/")}}>
                                             Keluar
                                         </DropdownItem>
                                     </Link>
@@ -80,7 +90,10 @@ class NavbarComponent extends React.Component {
                                         </DropdownItem>
                                     </Link>
                                     <Link to='' style={{textDecoration:'none'}}>
-                                        <DropdownItem>
+                                        <DropdownItem onClick={()=>{
+                                                localStorage.removeItem("data");
+                                                this.props.logoutAction()
+                                                window.location.assign("http://localhost:3000/")}}>
                                             Keluar
                                         </DropdownItem>
                                     </Link>
@@ -107,7 +120,8 @@ const mapToProps =(state)=>{
     return {
         username : state.userReducer.username,
         role : state.userReducer.role,
+        cart : state.userReducer.cart,
     }
 }
 
-export default connect(mapToProps)(NavbarComponent);
+export default connect(mapToProps,{logoutAction})(NavbarComponent);

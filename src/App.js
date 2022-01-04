@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import NavbarComponent from './components/Navbar_comp';
 import AuthPage from './pages/AuthPage';
+import CartPage from './pages/CartPage';
+import DetailTransaksi from './pages/DetailTransaksi';
 import LandingPage from './pages/LandingPage';
 import ManajemenProduk from './pages/ManajemenProduk';
 import ProductPage from './pages/Product';
+import ProductDetail from './pages/ProductDetail';
 import { loginAction } from './redux/action';
 import { productAction } from './redux/action';
 
@@ -51,6 +54,9 @@ class App extends React.Component {
         <Route path="/auth-page" element={<AuthPage/>}/>
         <Route path="/manajemen-produk" element={<ManajemenProduk/>}/>
         <Route path="/produk" element={<ProductPage/>}/>
+        <Route path="/produk-detail" element={<ProductDetail/>}/>
+        <Route path="/cart-page" element={<CartPage/>}/>
+        <Route path="/detailTransaksi-page" element={<DetailTransaksi/>}/>
       </Routes>
       </>
      );

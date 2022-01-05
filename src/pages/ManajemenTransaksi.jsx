@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import { Badge, Button, Collapse, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import { API_URL } from '../helper';
 
-class DetailTransaksi extends React.Component {
+class ManajemenTransaksi extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             transaksi : [],
             openCollapse : false,
-            modalOpen : false,
          }
     }
 
@@ -20,28 +19,32 @@ class DetailTransaksi extends React.Component {
         this.getData()
     }
 
-    getData= async ()=>{
-        await this.props.keeplogin()
-        axios.get(`${API_URL}/userTransactions?iduser=${this.props.iduser}`)
+    getData=()=>{
+        axios.get(`${API_URL}/userTransactions?`)
         .then((res)=>{
             this.setState({ transaksi : res.data})
-        })
-        .catch((err)=>{
-            console.log(err)
         })
     }
 
     btBatal = (idx) =>{
         let i = this.state.transaksi[idx].id
-        axios.delete(`${API_URL}/userTransactions/${i}`)
+        // axios.delete(`${API_URL}/userTransactions/${i}`)
+        // .then((res)=>{
+        //     this.getData()
+        //     this.setState({modalOpen:false})
+        // }).catch((err)=>{
+        //     console.log(err)
+        // })
+    }
+
+    btTerima = (id,confirm) =>{
+        axios.patch(`${API_URL}/userTransactions/${id}`,{status:confirm})
         .then((res)=>{
             this.getData()
-            this.setState({modalOpen:false})
-        }).catch((err)=>{
+        })
+        .catch((err)=>{
             console.log(err)
         })
-        
-
     }
 
     printTransaksi = () =>{
@@ -74,10 +77,11 @@ class DetailTransaksi extends React.Component {
                             }
                             </div>
                             <div className='col-6'>
-                                <div>
+                                <div className='d-flex'>
                                     <p>Total Pembayaran : <br/>
                                         <p className='h3 mx-4' style={{fontWeight:"bold",color:'#ED1B24'}}>IDR {val.totalPayment.toLocaleString('id-ID')}</p>
                                     </p>
+                                    <p style={{marginLeft:'auto',fontWeight:'bold'}}>user : {val.username}</p>
                                 </div>
                                 <div>
                                     <p>Pembayaran Melalui: <br/>
@@ -90,17 +94,12 @@ class DetailTransaksi extends React.Component {
                                         } width='30%'/>
                                     </p>
                                 </div>
-                                <Button color='danger' className='my-2' onClick={()=>this.setState({modalOpen:true})} >Batalkan Pesanan</Button>
-                                <Modal isOpen={this.state.modalOpen} toggle={()=>this.setState({modalOpen:false})} centered>
-                                    <ModalHeader toggle={()=>this.setState({modalOpen:false})}></ModalHeader>
-                                    <ModalBody>
-                                        <p>Anda yakin membatalkan pesanan ? </p>
-                                    </ModalBody>
-                                    <ModalFooter>
-                                        <Button color='danger' onClick={()=>this.btBatal(id)}>Ya</Button>
-                                         <Button color='warning' onClick={()=>this.setState({modalOpen:false})}>Keluar</Button>
-                                     </ModalFooter>
-                                </Modal>
+                                <div style={{display:'flex',justifyContent:'space-around'}}>
+                                    <Button color='danger' className='my-2' onClick={()=>this.btTerima(val.id,'Pesanan Dibatalkan')}>Batalkan Pesanan</Button>
+                                    <Button color='success' className='my-2' onClick={()=>this.btTerima(val.id,'Pesanan Diterima')}>Terima Pesanan</Button>
+
+                                </div>
+                                
                             </div>
                         </div>
 
@@ -111,7 +110,6 @@ class DetailTransaksi extends React.Component {
     }
 
     render() {
-        console.log('iduser',this.props.iduser)
         return ( 
             <div className='container'>
                 <p className='h3 my-4' style={{fontWeight:'bold'}}>Halaman Transaksi Anda</p>
@@ -127,4 +125,4 @@ const mapToProps =(state)=>{
     }
 }
 
-export default connect(mapToProps) (DetailTransaksi);
+export default connect(mapToProps) (ManajemenTransaksi);

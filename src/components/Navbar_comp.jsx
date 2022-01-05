@@ -74,7 +74,7 @@ class NavbarComponent extends React.Component {
                                 </DropdownMenu>
                                 :
                                 <DropdownMenu end>
-                                    <Link to='' style={{textDecoration:'none'}}>
+                                    <Link to='/manajemen-transaksi' style={{textDecoration:'none'}}>
                                         <DropdownItem >
                                             Manajemen Transaksi
                                         </DropdownItem>

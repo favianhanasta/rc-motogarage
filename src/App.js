@@ -7,6 +7,7 @@ import CartPage from './pages/CartPage';
 import DetailTransaksi from './pages/DetailTransaksi';
 import LandingPage from './pages/LandingPage';
 import ManajemenProduk from './pages/ManajemenProduk';
+import ManajemenTransaksi from './pages/ManajemenTransaksi';
 import ProductPage from './pages/Product';
 import ProductDetail from './pages/ProductDetail';
 import { loginAction } from './redux/action';
@@ -30,7 +31,6 @@ class App extends React.Component {
       let local = JSON.parse(localStorage.getItem('data'))
       if(local){
         let res = await this.props.loginAction(local.email,local.password)
-        console.log('lcl',res.success)
         if(res.success){
           this.setState({loading:false})
         }
@@ -56,7 +56,8 @@ class App extends React.Component {
         <Route path="/produk" element={<ProductPage/>}/>
         <Route path="/produk-detail" element={<ProductDetail/>}/>
         <Route path="/cart-page" element={<CartPage/>}/>
-        <Route path="/detailTransaksi-page" element={<DetailTransaksi/>}/>
+        <Route path="/detailTransaksi-page" element={<DetailTransaksi keeplogin={this.keeplogin}/>}/>
+        <Route path="/manajemen-transaksi" element={<ManajemenTransaksi/>}/>
       </Routes>
       </>
      );

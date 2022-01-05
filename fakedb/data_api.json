@@ -784,7 +784,7 @@
       ],
       "invoice": "#INV/1641219442107",
       "date": "1/3/2022, 9:17:22 PM",
-      "status": "Menunggu Konfirmasi",
+      "status": "Pesanan Diterima",
       "id": 1
     },
     {
@@ -837,18 +837,53 @@
     {
       "iduser": 2,
       "username": "fav",
-      "totalPayment": 6613500,
+      "totalPayment": 6310500,
       "detail": [
         {
-          "nama": "Yellowcorn YB-1109 Titanium Black/Gold",
-          "harga": 6350000,
+          "nama": "Alpinestar SMX Plus Boots Black Red",
+          "harga": 5500000,
           "qty": 1,
           "detail": {
-            "nama": "Yellowcorn YB-1109 Titanium Black/Gold",
-            "brand": "yellowcorn",
-            "kategori": "jacket",
-            "deskripsi": "Yellow Corn YB-1109 Titanium Black Gold\nmerupakan long sleeves jacket berbahan berkualitas yang didesain kasual dan elegan berdetail front zipper opening,\nfront zipper pockets, dan image print dibagian belakang.\nIdeal untuk memberikan rasa aman pada saat berkendara kendaraan roda dua. ",
-            "harga": 6350000,
+            "nama": "Alpinestar SMX Plus Boots Black Red",
+            "brand": "alpinestars",
+            "kategori": "boots",
+            "deskripsi": "Material:\n-Main upper constructed from an advanced microfiber for comfort, durability and excellent abrasion resistance\n-Perforated medial, lateral and toe panels for superb ventilation\n-Innovative heel counter support system, which works in conjunction with strap closure to offer improved fit and support as well as structural integrity\n-Rear of heel counter has been redesigned with soft TPR insert which works seamlessly with rear flex zone to allow for greater freedom of ankle movement and comfort on the bikes controls, plus durable TPR shift pad\n-Ergonomic new boot shaping for forefoot streamlining which offers wide-ranging foot profile, fit and comfort",
+            "harga": 5500000,
+            "stock": [
+              {
+                "id": null,
+                "type": "41",
+                "qty": 2
+              },
+              {
+                "id": null,
+                "type": "42",
+                "qty": 3
+              },
+              {
+                "id": null,
+                "type": "44",
+                "qty": 3
+              }
+            ],
+            "image": [
+              "https://images.tokopedia.net/img/cache/900/product-1/2019/5/9/798011/798011_366203cf-699a-47ac-88c6-87cfd804704e_440_440.jpg"
+            ],
+            "id": 25
+          },
+          "image": "https://images.tokopedia.net/img/cache/900/product-1/2019/5/9/798011/798011_366203cf-699a-47ac-88c6-87cfd804704e_440_440.jpg",
+          "type": "42"
+        },
+        {
+          "nama": "Taichi RST447 RUBBER KNUCKLE MESH GLOVE BLACK NEON",
+          "harga": 550000,
+          "qty": 1,
+          "detail": {
+            "nama": "Taichi RST447 RUBBER KNUCKLE MESH GLOVE BLACK NEON",
+            "brand": "taichi",
+            "kategori": "gloves",
+            "deskripsi": "Nylon mesh outer shell construction for superior airflow.\nRubber knuckle protection.\nAnti-slip silicone print on an index and middle finger.\nSynthetic leather reinforcement on the palm.\nMesh panel on side of fingers for airflow.\nVelcro closure on wrist for a secure fit.\nEVA foam padding on palm and side.\nAction panel on the finger for maneuverability.\nSmartphone compatible.",
+            "harga": 550000,
             "stock": [
               {
                 "id": null,
@@ -858,75 +893,28 @@
               {
                 "id": null,
                 "type": "M",
+                "qty": 4
+              },
+              {
+                "id": null,
+                "type": "L",
                 "qty": 2
               }
             ],
             "image": [
-              "https://images.tokopedia.net/img/cache/900/hDjmkQ/2021/8/5/76ec4251-fb49-44ae-ad23-a1d86c99f644.jpg"
+              "https://images.tokopedia.net/img/cache/900/hDjmkQ/2021/7/27/9c630645-6aa0-4da8-ba36-aac1af8d66d6.jpg"
             ],
-            "id": 21
+            "id": 16
           },
-          "image": "https://images.tokopedia.net/img/cache/900/hDjmkQ/2021/8/5/76ec4251-fb49-44ae-ad23-a1d86c99f644.jpg",
+          "image": "https://images.tokopedia.net/img/cache/900/hDjmkQ/2021/7/27/9c630645-6aa0-4da8-ba36-aac1af8d66d6.jpg",
           "type": "M"
         }
       ],
-      "invoice": "#INV/1641228152281",
-      "date": "1/3/2022, 11:42:32 PM",
-      "status": "Menunggu Konfirmasi",
-      "metodeBayar": "bca",
-      "id": 3
-    },
-    {
-      "iduser": 2,
-      "username": "fav",
-      "totalPayment": 3230000,
-      "detail": [
-        {
-          "nama": "TCX  X Road Groove Urban Grey",
-          "harga": 3000000,
-          "qty": 1,
-          "detail": {
-            "nama": "TCX  X Road Groove Urban Grey",
-            "brand": "tcx",
-            "kategori": "boots",
-            "deskripsi": "Deskripsi\nFull grain leather upper\nSuede leather padded collar\nGore-tex extended comfort lining\nMalleolus reinforcements\nToe and heel reinforcements\nLace and zipper closures\nAnatomic, replaceable foot bed\nSlim fit\nRubber sole\nCE certified",
-            "harga": 3000000,
-            "stock": [
-              {
-                "id": null,
-                "type": "42",
-                "qty": 1
-              },
-              {
-                "id": null,
-                "type": "43",
-                "qty": 2
-              },
-              {
-                "id": null,
-                "type": "44",
-                "qty": 2
-              },
-              {
-                "id": null,
-                "type": "41",
-                "qty": 4
-              }
-            ],
-            "image": [
-              "https://images.tokopedia.net/img/cache/900/product-1/2018/10/18/798011/798011_dbcdb4e6-476d-4bc6-8933-fc7d49dd3df7_554_554.jpg"
-            ],
-            "id": 23
-          },
-          "image": "https://images.tokopedia.net/img/cache/900/product-1/2018/10/18/798011/798011_dbcdb4e6-476d-4bc6-8933-fc7d49dd3df7_554_554.jpg",
-          "type": "43"
-        }
-      ],
-      "invoice": "#INV/1641274096180",
-      "date": "1/4/2022, 12:28:16 PM",
-      "status": "Menunggu Konfirmasi",
+      "invoice": "#INV/1641301909489",
+      "date": "1/4/2022, 8:11:49 PM",
+      "status": "Pesanan Dibatalkan",
       "metodeBayar": "",
-      "id": 4
+      "id": 3
     }
   ],
   "article": []

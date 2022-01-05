@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Alert, Badge, Button, Collapse, Input, Modal, ModalHeader } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Alert, Badge, Button, Collapse, Input, Modal, ModalHeader,ModalBody,ModalFooter} from 'reactstrap';
 import { API_URL } from '../helper';
 import { updateCart } from '../redux/action/userAction';
 
@@ -16,6 +17,7 @@ class ProductDetail extends React.Component {
             qty : 1,
             alertOpen : false,
             selectedIdImg : 0,
+            modalOpen:false,
          }
     }
 
@@ -47,7 +49,10 @@ class ProductDetail extends React.Component {
                     type : selectedType.type
                 }
                 this.props.cart.push(data)
-                this.props.updateCart(this.props.cart,this.props.idUser)
+                let res = await this.props.updateCart(this.props.cart,this.props.idUser)
+                if(res.success){
+                    this.setState({modalOpen:true})
+                }
             }else{
                 this.setState({alertOpen:true})
             }
@@ -82,6 +87,20 @@ class ProductDetail extends React.Component {
         console.log('sd',(this.props.idUser))
         return ( 
             <div className='container' style={{paddingTop:'5%'}}>
+                <Modal isOpen={this.state.modalOpen} toggle={()=>this.setState({modalOpen:false})} centered>
+                                    <ModalHeader toggle={()=>this.setState({modalOpen:false})}></ModalHeader>
+                                    <ModalBody>
+                                        <p>Item Berhasil Ditambahkan pada Keranjang 😊</p>
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Link to='/produk'>
+                                            <Button color='primary'>Pilih Produk lagi</Button>
+                                        </Link>
+                                        <Link to='/cart-page'>
+                                            <Button color='warning'>Keranjang Anda</Button>
+                                        </Link>
+                                     </ModalFooter>
+                </Modal>
                 <div className='row py-4'>
                     <div className='col-md-4' >
                     {

@@ -27,3 +27,18 @@ export const productAction = (nama,min,max)=>{
         }
     }
 }
+
+export const productKategori = (kat) =>{
+    return async (dispatch) =>{
+        try{
+            dispatch ({
+                type : 'GET_KATEGORI',
+                payload : kat
+            })
+            return {success : true}
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}

@@ -20,13 +20,13 @@ class ProductPage extends React.Component {
             return (
                 <div className='col-md-4 mb-4'>
                     <Link to= {`/produk-detail?id=${val.id}`} style={{textDecoration:"none", color:"black"}}>
-                    <Card className='shadow px-2' >
+                    <Card className='shadow px-2'  style={{background : 'white',border:'none',borderRadius:20}}>
                         <div style={{height:250, justifyContent:'center',display:'flex'}}>
-                        <CardImg alt='cardimg' top  src={val.image[0]} style={{width:"70%",alignSelf:'center',marginTop:'10%',marginBottom:'10%',display:'inline-block'}}/>
+                        <CardImg className='zoom' alt='cardimg' top  src={val.image[0]} style={{width:"70%",alignSelf:'center',marginTop:'10%',marginBottom:'10%',display:'inline-block',borderRadius:20}}/>
                         </div>
                         <CardBody>
                             <div style={{height:100}}>
-                            <CardTitle className='h5'>{val.nama}</CardTitle>
+                            <CardTitle className='h5' >{val.nama}</CardTitle>
                             </div>
                             <CardTitle className="h5" style={{fontWeight:'bold'}}>IDR {val.harga.toLocaleString('id-ID')}</CardTitle>
                             <CardText>
@@ -54,10 +54,10 @@ class ProductPage extends React.Component {
     printBtPagination = () =>{
         let btn=[]
         for(let i=0;i< Math.ceil(this.props.product.length/6);i++){
-            btn.push(<Button className='mx-2' color='danger'
+            btn.push(<Button className='mx-2' 
             disabled={this.state.page=== i + 1 ? true : false} 
             onClick={()=>this.setState({page: i+1})}
-            style={{borderRadius:'50%',width:40,height:40,backgorundColor:'#ED1B24'}}
+            style={{borderRadius:'50%',width:40,height:40,backgroundColor:'#DA0037',border:'none'}}
             >{i+1}</Button>)
         }
         return btn;
@@ -78,11 +78,13 @@ class ProductPage extends React.Component {
     }
 
     render() {
+        this.props.nav('/produk')
         return ( 
-            <div className='container'>
-                <div className='container rounded align-items-center d-flex shadow my-4' style={{backgroundImage: `url(${carousel})`,height:300,backgroundRepeat:'no-repeat'}}>
+            <div>
+                <div className='container rounded align-items-center d-flex shadow my-4' style={{backgroundImage: `url(${carousel})`,height:300,backgroundRepeat:'no-repeat',width:"100%"}}>
                     <p className='h1 m-auto' style={{fontWeight:'bold',color:'black',color:'white',paddingRight:'20%'}}>PRODUCTS</p>
                 </div>
+                <div className='container'>
                 <div className= 'row' style={{marginTop:'5%'}} >
                     <div className='col-md-3'>
                         <Card className='p-3'>
@@ -113,6 +115,7 @@ class ProductPage extends React.Component {
                 </div>
                 <div className='d-flex justify-content-center my-3'>
                     {this.printBtPagination()}
+                </div>
                 </div>
             </div>
          );

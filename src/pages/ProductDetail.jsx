@@ -18,11 +18,13 @@ class ProductDetail extends React.Component {
             alertOpen : false,
             selectedIdImg : 0,
             modalOpen:false,
+            loginOpen : false,
          }
     }
 
     
     componentDidMount(){
+        
         axios.get(`${API_URL}/products${window.location.search}`)
         .then((res)=>{
             this.setState({detail:res.data[0]})
@@ -56,6 +58,8 @@ class ProductDetail extends React.Component {
             }else{
                 this.setState({alertOpen:true})
             }
+        }else {
+            this.setState({loginOpen:true});
         }
     }
 
@@ -84,23 +88,40 @@ class ProductDetail extends React.Component {
     
     
     render() {
+        this.props.nav('/detail-produk')
         console.log('sd',(this.props.idUser))
         return ( 
             <div className='container' style={{paddingTop:'5%'}}>
-                <Modal isOpen={this.state.modalOpen} toggle={()=>this.setState({modalOpen:false})} centered>
+                <Modal isOpen={this.state.loginOpen} toggle={()=>this.setState({loginOpen:false})} centered>
+                    <ModalHeader toggle={()=>this.setState({loginOpen:false})}></ModalHeader>
+                    <ModalBody>
+                            <p>Login terlebih dahulu untuk menikmati fitur lainnya</p>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Link to='/auth-page'>
+                            <Button style={{backgroundColor:'#DA0037',border:'none'}}>Login</Button>
+                        </Link>
+                    </ModalFooter>
+                </Modal>
+                <Modal isOpen={this.state.modalOpen} toggle={()=>this.setState({modalOpen:false})} centered >
                                     <ModalHeader toggle={()=>this.setState({modalOpen:false})}></ModalHeader>
                                     <ModalBody>
-                                        <p>Item Berhasil Ditambahkan pada Keranjang 😊</p>
+                                        <p>Item Berhasil Ditambahkan pada Keranjang </p>
                                     </ModalBody>
                                     <ModalFooter>
                                         <Link to='/produk'>
                                             <Button color='primary'>Pilih Produk lagi</Button>
                                         </Link>
                                         <Link to='/cart-page'>
-                                            <Button color='warning'>Keranjang Anda</Button>
+                                            <Button >Keranjang Anda</Button>
                                         </Link>
                                      </ModalFooter>
                 </Modal>
+                    <div className='d-flex justify-content-center'>
+                        <Alert className='alert-heading' color='danger' isOpen={this.state.alertOpen} toggle={()=>this.setState({alertOpen:false})}>
+                            <p className='lead'>Oops, Pilih ukuran terlebih dahulu!</p>
+                        </Alert>
+                    </div>
                 <div className='row py-4'>
                     <div className='col-md-4' >
                     {
@@ -160,11 +181,6 @@ class ProductDetail extends React.Component {
                         </div>
                     </div>
                         <Button className='p-2' style={{width:'100%',backgroundColor:'#ED1B24',fontWeight:'bold',border:'none'}} onClick={this.onBtCart} >Add to Cart</Button>
-                    <div className='d-flex justify-content-center my-4'>
-                        <Alert className='alert-heading' color='danger' isOpen={this.state.alertOpen} toggle={()=>this.setState({alertOpen:false})}>
-                            <p className='lead'>Oops, Pilih ukuran terlebih dahulu!</p>
-                        </Alert>
-                    </div>
                     </div>
                     </div>    
             </div>

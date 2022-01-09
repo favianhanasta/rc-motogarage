@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useDebugValue } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Badge, Button, Collapse, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Badge, Button,Card,Label,Input } from 'reactstrap';
 import { API_URL } from '../helper';
 
 class ManajemenTransaksi extends React.Component {
@@ -10,6 +10,8 @@ class ManajemenTransaksi extends React.Component {
         this.state = { 
             transaksi : [],
             openCollapse : false,
+            inDate : '',
+            filterStatus : '',
          }
     }
 
@@ -26,16 +28,35 @@ class ManajemenTransaksi extends React.Component {
         })
     }
 
-    btBatal = (idx) =>{
-        let i = this.state.transaksi[idx].id
-        // axios.delete(`${API_URL}/userTransactions/${i}`)
-        // .then((res)=>{
-        //     this.getData()
-        //     this.setState({modalOpen:false})
-        // }).catch((err)=>{
-        //     console.log(err)
-        // })
+    btCari=()=>{
+        if(this.filInvoice.value){
+            axios.get(`${API_URL}/userTransactions?invoice=${this.filInvoice.value}`)
+                .then((res)=>{
+                    this.setState({ transaksi : res.data})
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+        }else if (this.state.filterStatus){
+            axios.get(`${API_URL}/userTransactions?status=${this.state.filterStatus}`)
+                .then((res)=>{
+                    this.setState({ transaksi : res.data})
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+        }
     }
+
+    btnFilterStatus = (status) =>{
+        return this.setState({filterStatus : status})
+    }
+    
+    btShowAll= async ()=>{
+        this.getData()
+        this.filInvoice.value=''
+        this.setState({filterStatus:''})
+     }
 
     btTerima = (id,confirm) =>{
         axios.patch(`${API_URL}/userTransactions/${id}`,{status:confirm})
@@ -58,7 +79,7 @@ class ManajemenTransaksi extends React.Component {
                             
                                 {
                                     val.detail.map((item,i)=>{
-                                        return <img src={item.detail.image} width='40%' style={{margin:'auto'}}/>
+                                        return <img src={item.detail.image[0]} width='40%' style={{margin:'auto'}}/>
                                     })
                                 }
                         </div>
@@ -110,10 +131,44 @@ class ManajemenTransaksi extends React.Component {
     }
 
     render() {
+        this.props.nav('./manajemen-transaksi')
         return ( 
-            <div className='container'>
+            <div className='container-fluid'>
                 <p className='h3 my-4' style={{fontWeight:'bold'}}>Halaman Transaksi Anda</p>
-                {this.printTransaksi()}
+                <div className='row'>
+                    <div className='col-md-3'>
+                    <Card className='p-3'>
+                        <div className='d-flex'>
+                            <p className='h5' style={{fontWeight:'700'}}>Filter</p>
+                            <span className="material-icons mx-1" style={{color:'#ED1B24'}}>sort</span>
+                        </div>
+                        <div className='my-2'>
+                        <Label for='nm'>Invoice</Label>
+                        <Input id='nm' type='text' placeholder='Search by Invoice' innerRef={(e)=>this.filInvoice=e}/>
+                        </div>
+                        <div className='my-2'>
+                        <Label for='nm'>Status</Label>
+                        <div>
+                            <Button  className='w-75' onClick={()=>this.btnFilterStatus('Menunggu Konfirmasi')} color='warning' outline>Menunggu Konfirmasi</Button>
+                            <Button className='my-2 w-75' onClick={()=>this.btnFilterStatus('Pesanan Diterima')} color='success' outline>Pesanan Diterima</Button>
+                            <Button  className='w-75' onClick={()=>this.btnFilterStatus('Pesanan Dibatalkan')} color='danger' outline>Pesanan Dibatalkan</Button>
+                        </div>
+
+                        {/* <Input id='nm' type='text' placeholder='Search by Invoice' innerRef={(e)=>this.filStatus=e}/> */}
+                        </div>
+                        {/* <div className='my-2'>
+                        <Label for='nm'>Date</Label>
+                        <Input id='nm' type='date' placeholder='Search by Invoice' onChange={(e)=>this.setState({inDate:e.target.value})}/>
+                        </div> */}
+                        <Button className='my-3' color='primary' onClick={this.btCari}>Cari</Button>
+                        <Button color='primary' outline onClick={this.btShowAll}>Tampilkan Semua</Button>
+                        </Card>
+                    </div>
+                    <div className='col-md-9'>
+                        {this.printTransaksi()}
+                    </div>
+
+                </div>
             </div>
          );
     }

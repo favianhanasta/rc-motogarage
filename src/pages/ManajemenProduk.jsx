@@ -70,6 +70,7 @@ class ManajemenProduk extends React.Component {
     
     
     render() { 
+        this.props.nav('/manajemen-produk')
         console.log('id',this.state.detailProduk)
         return ( 
             <div>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalHeader } from 'reactstrap';
 import logo from '../assets/rc.png';
 import { API_URL } from '../helper';
 import { updateCart } from '../redux/action';
@@ -13,7 +13,8 @@ class CartPage extends React.Component {
         super(props);
         this.state = { 
             metodePayment : '',
-            metodePaymentUrl:''
+            metodePaymentUrl:'',
+            modalMetode:'',
          }
     }
 
@@ -28,8 +29,8 @@ class CartPage extends React.Component {
                         <div className='col-9' >
                         <p style={{fontWeight:'bold'}} className='lead'>{val.nama}</p>
                         <div className='d-flex'>
-                            <p>Size : <a style={{color:'#ED1B24'}}>{val.type}</a></p>
-                            <p className='mx-4'>Kategori : <a style={{color:'#ED1B24'}}>{val.detail.kategori}</a></p>
+                            <p >Size : <a style={{color:'#ED1B24'}}>{val.type}</a></p>
+                            <p className='mx-4' >Kategori : <a style={{color:'#ED1B24'}}>{val.detail.kategori}</a></p>
                         </div>
                         <p style={{fontWeight:'bold',fontSize:25}}>IDR {val.harga.toLocaleString('id-ID')} <a style={{fontWeight:'100',color:'grey',fontSize:20}}>X</a> {val.qty} </p>
                         </div>
@@ -64,22 +65,27 @@ class CartPage extends React.Component {
 
     btnBayar = () =>{
         let d = new Date();
-        axios.post(`${API_URL}/userTransactions`,{
-            iduser : this.props.iduser,
-            username  : this.props.username,
-            totalPayment : this.totalPayment()+200000+(this.totalPayment()*1/100),
-            detail : [...this.props.cart],
-            invoice : `#INV/${d.getTime()}`,
-            date : d.toLocaleString(),
-            status : 'Menunggu Konfirmasi',
-            metodeBayar : this.state.metodePayment
-        })
-        .then((res)=>{
-            this.props.updateCart([],this.props.iduser)
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+        if(this.state.metodePayment){
+            axios.post(`${API_URL}/userTransactions`,{
+                iduser : this.props.iduser,
+                username  : this.props.username,
+                totalPayment : this.totalPayment()+200000+(this.totalPayment()*1/100),
+                detail : [...this.props.cart],
+                invoice : `INV${d.getTime()}`,
+                date : d.toLocaleString(),
+                status : 'Menunggu Konfirmasi',
+                metodeBayar : this.state.metodePayment
+            })
+            .then((res)=>{
+                this.props.updateCart([],this.props.iduser)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+
+        }else{
+            this.setState({modalMetode:true})
+        }
     }
 
     btnBatalCart = (id) =>{
@@ -90,8 +96,13 @@ class CartPage extends React.Component {
     }
 
     render() {
+        this.props.nav('/cart-page')
         return (
-            <div className='container' style={{marginTop:'3%'}}>
+            <div className='container' style={{marginTop:'4%'}}>
+                <Modal isOpen={this.state.modalMetode} toggle={()=>this.setState({modalMetode:false})} centered>
+                    <ModalHeader toggle={()=>this.setState({modalMetode:false})}>Attention </ModalHeader>
+                    <ModalBody><p className='lead'>Pilih Metode Pembayaran terlebih dahulu</p></ModalBody>
+                </Modal>
                 {
                     this.props.cart.length?
                     <>
@@ -103,8 +114,8 @@ class CartPage extends React.Component {
                     <div className='col-7 p-2'  style={{borderRadius:20}}>
                         {this.printProduk()}
                     </div> 
-                    <div className='col-5'>
-                        <div className='container p-3 shadow' style={{borderRadius:20}}>
+                    <div className='col-5 '>
+                        <div className='container p-3 shadow' style={{borderRadius:20,backgroundColor:'white'}}>
                         <div>
                             <p className='text-center h4'>Detail Pembayaran</p>
                             {this.printTotalPayment()}
@@ -145,8 +156,8 @@ class CartPage extends React.Component {
                     <div>
                         <div className='container p-4 justify-content-center w-75 text-center' style={{borderRadius:50}}>
                                 <img src={cart} width='50%' style={{marginBottom:'3%'}}/>
-                                <h2>Maaf, keranjang belanjaan anda kosong </h2>
-                                <h2>Ayo, Silahkan berbelanja 😊</h2>
+                                <h2>Keranjang belanjaan anda kosong </h2>
+                                <h2>Ayooo berbelanja  </h2>
                                 <div className='row'>
                                     <div className='col-6'>
                                         <Link to='/produk'>

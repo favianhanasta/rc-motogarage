@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown, Spinner, Badge } from 'reactstrap';
-import logo from '../assets/rc_logo.png';
+import logo from '../assets/rc.png';
 import { connect } from 'react-redux';
 import { logoutAction } from '../redux/action';
 
@@ -11,40 +11,54 @@ class NavbarComponent extends React.Component {
         this.state = { 
             expand : false,
             toggle : false,
+            navbar : false,
+            nav : ''
          }     
     }
+
+    componentDidMount(){
+        window.addEventListener('scroll', this.changeBackground)
+    }
     
-    render() { 
+    changeBackground = () =>{
+        if(window.scrollY >= 80){
+            this.setState({navbar:true})
+        }else{
+            this.setState({navbar:false})
+        }
+    }
+
+    render() {
+        
         return (
-            <div style={{backgroundColor:'black'}}>
-            <Navbar expand='md' className='container-fluid pr-0 align-items-center' dark>
-                <NavbarBrand>
+            <nav className={ this.props.path == '/'?  this.state.navbar ? 'navbar active home container-fluid ' : 'navbar home container-fluid' : 'navbar container-fluid '} >
+                <NavbarBrand style={{marginLeft:'10%'}} onClick={()=>this.props.nav('/')}>
                     <Link to="/">
-                    <img src={logo} width='150px'/>
+                    <img src={logo} width='100px'/>
                     </Link>
                 </NavbarBrand>
                 <Nav>
+                    <NavItem >
+                        <Link  to='/produk' style={{textDecoration:'none'}}>
+                        <NavLink style={{color:'white'}} onClick={()=>this.props.nav('/produk')}>
+                            Products
+                        </NavLink>
+                        </Link>
+                    </NavItem>
                     {
                         this.props.role=='user'?
                         <NavItem >
                             <Link  to='/cart-page' style={{textDecoration:'none'}}>
-                            <NavLink href='' style={{color:'white'}}>
+                            <NavLink href='' style={{color:'white'}} onClick={()=>this.props.nav('/cart-page')}>
                                 Cart {
                                     this.props.cart.length > 0 &&
-                                    <Badge color='success'>{this.props.cart.length}</Badge>
+                                    <Badge color='danger'>{this.props.cart.length}</Badge>
                                 }
                             </NavLink>
                             </Link>
                         </NavItem>:null
 
                     }
-                    <NavItem >
-                        <Link  to='/produk' style={{textDecoration:'none'}}>
-                        <NavLink style={{color:'white'}}>
-                            Products
-                        </NavLink>
-                        </Link>
-                    </NavItem>
                     {
                         this.props.loading?
                         <Spinner animation="border"style={{marginLeft:"auto", marginRight:10}}>
@@ -54,12 +68,12 @@ class NavbarComponent extends React.Component {
                         this.props.username ?
                         <NavItem className="align-items-center">
                             <UncontrolledDropdown>
-                            <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'white'}}>Hello, <a style={{color:'#ED1B24'}}>{this.props.username}</a></DropdownToggle>
+                            <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'White'}}>Hello, <a style={{color:'#ED1B24'}}>{this.props.username}</a></DropdownToggle>
                             {
                                 this.props.role=='user' ?
                                 <DropdownMenu end>
                                     <Link to='/detailTransaksi-page' style={{textDecoration:'none'}}>
-                                        <DropdownItem >
+                                        <DropdownItem style={{color:'black'}} onClick={()=>this.props.nav('/detailTransaksi-page')}>
                                             Transaksi Saya
                                         </DropdownItem>
                                     </Link>
@@ -75,17 +89,17 @@ class NavbarComponent extends React.Component {
                                 :
                                 <DropdownMenu end>
                                     <Link to='/manajemen-transaksi' style={{textDecoration:'none'}}>
-                                        <DropdownItem >
+                                        <DropdownItem onClick={()=>this.props.nav('/manajemen-transaksi')}>
                                             Manajemen Transaksi
                                         </DropdownItem>
                                     </Link>
                                     <Link to='/manajemen-produk' style={{textDecoration:'none'}}>
-                                        <DropdownItem >
+                                        <DropdownItem onClick={()=>this.props.nav('/manajemen-produk')}>
                                             Manajemen Produk
                                         </DropdownItem>
                                     </Link>
-                                    <Link to='' style={{textDecoration:'none'}}>
-                                        <DropdownItem>
+                                    <Link to='/manajemen-artikel' style={{textDecoration:'none'}}>
+                                        <DropdownItem onClick={()=>this.props.nav('/manajemen-artikel')}>
                                             Manajemen Artikel
                                         </DropdownItem>
                                     </Link>
@@ -105,13 +119,12 @@ class NavbarComponent extends React.Component {
                         :
                         <NavItem>
                             <Link to='/auth-page'>
-                                <Button color='danger' type="button" outline className='px-4'>Login</Button>
+                                <Button color='danger' type="button" outline className='px-4' onClick={()=>this.props.nav('/auth-page')}>Login</Button>
                             </Link>
                         </NavItem>
                     }
                 </Nav>
-            </Navbar>
-            </div> 
+            </nav>
          );
     }
 }

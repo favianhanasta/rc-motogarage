@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     email :"",
     role :"",
     status:"",
-    cart:[]
+    cart:[],
 }
 
 export const userReducer = (state=INITIAL_STATE,action)=>{

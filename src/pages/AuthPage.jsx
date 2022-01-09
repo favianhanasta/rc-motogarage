@@ -24,6 +24,10 @@ class AuthPage extends React.Component {
         }
     }
 
+    // componentDidMount(){
+    //     this.props.nav('/auth-page')
+    // }
+
     btShowPassConf =()=>{
         if(this.state.passTypeConf=='password'){
             this.setState({
@@ -113,6 +117,7 @@ class AuthPage extends React.Component {
         if(this.props.iduser>0){
             return <Navigate to='/'/>
         } 
+        this.props.nav('/auth-page')
         return ( 
             <div className='container py-4' style={{position:'relative'}}>
                 <div className='d-flex justify-content-end'>
@@ -121,7 +126,7 @@ class AuthPage extends React.Component {
                         <ToastBody> {this.state.toastBody} </ToastBody>
                     </Toast>
                 </div>
-                <div className='d-md-flex row container py-4 mx-auto shadow' style={{backgroundColor:'black',borderRadius:20,position:'relative',marginTop:'10%'}}>
+                <div className='d-md-flex row container py-4 mx-auto shadow' style={{backgroundColor:'black',borderRadius:20,position:'relative',marginTop:'5%',height:612}}>
                 <div className='m-auto text-center col-md-6'>
                     <img src={logo} width='500'/>
                 </div>
@@ -200,8 +205,6 @@ class AuthPage extends React.Component {
                             <p><a style={{color:'red',cursor:'pointer'}} onClick={()=>this.setState({head:'Login'})}>Login Page</a></p>
                         </FormGroup>
                     </Form>
-
-                        
                     }
                     </div>
                 </div>

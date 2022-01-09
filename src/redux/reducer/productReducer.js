@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    product : []
+    product : [],
 }
 
 export const productReducer = (state=INITIAL_STATE,action)=>{
@@ -8,6 +8,11 @@ export const productReducer = (state=INITIAL_STATE,action)=>{
             console.log("prd",action.payload)
             return {
                 ...state,product: action.payload
+            }
+        case "GET_KATEGORI":
+            console.log('kat',action.payload)
+            return {
+                ...state,kategori : action.payload
             }
         default :
             return state

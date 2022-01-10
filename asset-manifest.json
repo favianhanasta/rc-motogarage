@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/rc-motogarage/static/css/main.6bd40eb3.chunk.css",
-    "main.js": "/rc-motogarage/static/js/main.ee464a8f.chunk.js",
-    "main.js.map": "/rc-motogarage/static/js/main.ee464a8f.chunk.js.map",
+    "main.js": "/rc-motogarage/static/js/main.27bfce84.chunk.js",
+    "main.js.map": "/rc-motogarage/static/js/main.27bfce84.chunk.js.map",
     "runtime-main.js": "/rc-motogarage/static/js/runtime-main.b2c26cf0.js",
     "runtime-main.js.map": "/rc-motogarage/static/js/runtime-main.b2c26cf0.js.map",
     "static/js/2.a3554fc9.chunk.js": "/rc-motogarage/static/js/2.a3554fc9.chunk.js",
@@ -31,6 +31,6 @@
     "static/js/runtime-main.b2c26cf0.js",
     "static/js/2.a3554fc9.chunk.js",
     "static/css/main.6bd40eb3.chunk.css",
-    "static/js/main.ee464a8f.chunk.js"
+    "static/js/main.27bfce84.chunk.js"
   ]
 }

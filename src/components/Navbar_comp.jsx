@@ -81,7 +81,7 @@ class NavbarComponent extends React.Component {
                                         <DropdownItem onClick={()=>{
                                                 localStorage.removeItem("data");
                                                 this.props.logoutAction()
-                                                window.location.assign("http://localhost:3000/")}}>
+                                                window.location.assign("/")}}>
                                             Keluar
                                         </DropdownItem>
                                     </Link>
@@ -107,7 +107,7 @@ class NavbarComponent extends React.Component {
                                         <DropdownItem onClick={()=>{
                                                 localStorage.removeItem("data");
                                                 this.props.logoutAction()
-                                                window.location.assign("http://localhost:3000/")}}>
+                                                window.location.assign("/")}}>
                                             Keluar
                                         </DropdownItem>
                                     </Link>

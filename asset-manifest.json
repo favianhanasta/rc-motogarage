@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/rc-motogarage/static/css/main.6bd40eb3.chunk.css",
+    "main.js": "/rc-motogarage/static/js/main.ee464a8f.chunk.js",
+    "main.js.map": "/rc-motogarage/static/js/main.ee464a8f.chunk.js.map",
+    "runtime-main.js": "/rc-motogarage/static/js/runtime-main.b2c26cf0.js",
+    "runtime-main.js.map": "/rc-motogarage/static/js/runtime-main.b2c26cf0.js.map",
+    "static/js/2.a3554fc9.chunk.js": "/rc-motogarage/static/js/2.a3554fc9.chunk.js",
+    "static/js/2.a3554fc9.chunk.js.map": "/rc-motogarage/static/js/2.a3554fc9.chunk.js.map",
+    "static/js/3.5d44ea3d.chunk.js": "/rc-motogarage/static/js/3.5d44ea3d.chunk.js",
+    "static/js/3.5d44ea3d.chunk.js.map": "/rc-motogarage/static/js/3.5d44ea3d.chunk.js.map",
+    "index.html": "/rc-motogarage/index.html",
+    "static/css/main.6bd40eb3.chunk.css.map": "/rc-motogarage/static/css/main.6bd40eb3.chunk.css.map",
+    "static/js/2.a3554fc9.chunk.js.LICENSE.txt": "/rc-motogarage/static/js/2.a3554fc9.chunk.js.LICENSE.txt",
+    "static/media/artikel.7d23d9d2.png": "/rc-motogarage/static/media/artikel.7d23d9d2.png",
+    "static/media/buka.ca4bedf7.png": "/rc-motogarage/static/media/buka.ca4bedf7.png",
+    "static/media/carousel_product.52e68f74.png": "/rc-motogarage/static/media/carousel_product.52e68f74.png",
+    "static/media/cart.b5fe7e5c.png": "/rc-motogarage/static/media/cart.b5fe7e5c.png",
+    "static/media/fb.c5e03109.png": "/rc-motogarage/static/media/fb.c5e03109.png",
+    "static/media/home.a992ce6d.jpg": "/rc-motogarage/static/media/home.a992ce6d.jpg",
+    "static/media/ig.0963b7a5.png": "/rc-motogarage/static/media/ig.0963b7a5.png",
+    "static/media/kate1-01.0a673dc2.png": "/rc-motogarage/static/media/kate1-01.0a673dc2.png",
+    "static/media/kate2-01.961591da.png": "/rc-motogarage/static/media/kate2-01.961591da.png",
+    "static/media/kate3-01.9fe460db.png": "/rc-motogarage/static/media/kate3-01.9fe460db.png",
+    "static/media/kate4-01.b935cac1.png": "/rc-motogarage/static/media/kate4-01.b935cac1.png",
+    "static/media/lp_3-01-01.d4cee59f.png": "/rc-motogarage/static/media/lp_3-01-01.d4cee59f.png",
+    "static/media/rc_logo.576762ac.png": "/rc-motogarage/static/media/rc_logo.576762ac.png",
+    "static/media/tkp.a2af4f3f.png": "/rc-motogarage/static/media/tkp.a2af4f3f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2c26cf0.js",
+    "static/js/2.a3554fc9.chunk.js",
+    "static/css/main.6bd40eb3.chunk.css",
+    "static/js/main.ee464a8f.chunk.js"
+  ]
+}

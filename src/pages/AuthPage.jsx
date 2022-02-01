@@ -61,13 +61,10 @@ class AuthPage extends React.Component {
         let inPassword = this.passwordRegis.value;
         if(inUsername !== "" && inEmail !== "" && inPassword !== ""){
             if(inPassword === this.state.confPass && inEmail.includes('@')){
-                axios.post(`${API_URL}/users`,{
+                axios.post(`${API_URL}/users/registrasi`,{
                     username : inUsername,
                     email  : inEmail,
-                    password : inPassword,
-                    status : 'active',
-                    role : 'user',
-                    cart: []
+                    password : inPassword
                 }).then((res)=>{
                     this.setState({
                         toastOpen:true,
@@ -98,18 +95,18 @@ class AuthPage extends React.Component {
     }
 
     onBtnLogin = async () =>{
-        try{
-            let res = await this.props.loginAction(this.emailLogin.value,this.passwordLogin.value)
-            if(res.failed){
-                this.setState({notifFail:'Cek Kembali email dan password anda'})
-                console.log(this.state.notifFail)
-            }else if(res.success){
-                this.setState({notifFail:''})
-            }
-        }
-        catch (error){
-            console.log(error)
-        }
+        // try{
+        this.props.loginAction(this.emailLogin.value,this.passwordLogin.value)
+        //     if(res.failed){
+        //         this.setState({notifFail:'Cek Kembali email dan password anda'})
+        //         console.log(this.state.notifFail)
+        //     }else if(res.success){
+        //         this.setState({notifFail:''})
+        //     }
+        // }
+        // catch (error){
+        //     console.log(error)
+        // }
 
     }
 
@@ -119,19 +116,19 @@ class AuthPage extends React.Component {
         } 
         this.props.nav('/auth-page')
         return ( 
-            <div className='container py-4' style={{position:'relative'}}>
+            <div style={{width:'75%', margin:'auto'}}>
                 <div className='d-flex justify-content-end'>
                     <Toast isOpen={this.state.toastOpen} style={{position:'fixed '}}>
                         <ToastHeader toggle={()=>this.setState({toastOpen:false})} icon={this.state.toastIcon}> {this.state.toastHeader} </ToastHeader>
                         <ToastBody> {this.state.toastBody} </ToastBody>
                     </Toast>
                 </div>
-                <div className='d-md-flex row container py-4 mx-auto shadow' style={{backgroundColor:'black',borderRadius:20,position:'relative',marginTop:'5%',height:612}}>
-                <div className='m-auto text-center col-md-6'>
-                    <img src={logo} width='500'/>
+                <div className='d-md-flex mx-auto shadow row' style={{borderRadius:20,position:'relative',marginTop:'5%'}}>
+                <div className='col-md-7' style={{padding:0,borderRadius:20,backgroundColor:'yellow'}}>
+                    <img src='https://images.unsplash.com/photo-1627407811811-56b02ac2493f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80' width='100%' style={{borderRadius:20}}/>
                 </div>
-                <div className='col-md-6 py-4' style={{backgroundColor:'white',borderRadius:10}}>
-                    <div className='w-75' style={{margin:'auto'}}>
+                <div className='col-md-5' style={{backgroundColor:'white',borderRadius:10}}>
+                    <div style={{margin:'auto',alignSelf:'auto',padding:'5%'}}>
                     {
                         this.state.head === 'Login' ?
                         <Form>
@@ -158,7 +155,7 @@ class AuthPage extends React.Component {
                             <Button color='danger' type='button' onClick={this.onBtnLogin} style={{borderColor:'black'}}>Login</Button>
                         </FormGroup>
                         <FormGroup>
-                            <p>Belum mempunyai akun? <a style={{color:'red',cursor:'pointer'}} onClick={()=>this.setState({head:'Register'})}>Daftar Sekarang</a></p>
+                            <p className='text-muted'>Belum mempunyai akun? <a style={{color:'red',cursor:'pointer'}} onClick={()=>this.setState({head:'Register'})}>Daftar Sekarang</a></p>
                         </FormGroup>
                         </Form>
                         :
@@ -216,7 +213,7 @@ class AuthPage extends React.Component {
 
 const mapToProps =(state)=>{
     return {
-        iduser : state.userReducer.id
+        iduser : state.userReducer.idusers
     }
 }
  

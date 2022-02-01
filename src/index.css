@@ -27,6 +27,9 @@ code {
   transition: transform .2s; 
   margin: 0 auto;
 }
+.zoom-hjc {
+  transition: transform .2s;
+}
 
 .zoom:hover {
   transform: scale(1.1); 
@@ -50,8 +53,6 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%
 
 .navbar {
   background: #050708;
-  font-family: 'Roboto', sans-serif;
-  font-weight: bold;
 }
 
 .navbar.home{

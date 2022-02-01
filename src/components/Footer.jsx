@@ -12,20 +12,22 @@ class FooterComp extends React.Component {
     render() { 
         return ( 
             <div  style={{padding:'3%',background:'black',marginTop:'4%'}}>
-                <div className='container row' style={{margin:'auto'}}>
+                <div className='container-fluid row' style={{margin:'auto'}}>
                     <div className='col-4 d-flex justify-content-end'>
-                        <div className='w-50'>
+                        <div>
                         <h5 style={{fontWeight:'bold',color:'white'}}>Social Media</h5>
                         <div className='text-center'>
                             <img src={fb} style={{width:'60%'}} />
                             <img src={ig} style={{width:'30%'}} />  
                         </div>
-                        <h5 style={{fontWeight:'bold',color:'white'}}>MarketPlace</h5>
-                        <div className='text-center'>
-                            <img src={bl} style={{width:'70%'}} />
                         </div>
                         <div className='text-center'>
-                            <img src={tkp} style={{width:'60%'}} />
+                        <h5 style={{fontWeight:'bold',color:'white'}}>MarketPlace</h5>
+                        <div className='text-center'>
+                            <img src={bl} style={{width:'50%'}} />
+                        </div>
+                        <div className='text-center'>
+                            <img src={tkp} style={{width:'40%'}} />
                         </div>
                         </div>
                     </div>
@@ -38,9 +40,11 @@ class FooterComp extends React.Component {
                     <div className='col-4'>
                     <div style={{color:'white'}}>
                         <h5 style={{fontWeight:'bold'}}>Kontak Kami</h5>
-                        <p>WhatsApp <br/> <p style={{color:'#969696'}}>081386727078</p></p>
-                        <p>Line <br/> <p style={{color:'#969696'}}>@rc_motogarage</p></p>
-                        <p>Kantor kami <br/> <p style={{color:'#969696'}}>RC Serpong Ruko Medrisio 3, Jl. Boulevard iL Lago No.21, Cihuni, Pagedangan, Tangerang Regency, Banten 15332</p></p>
+                        <div className='d-flex'>
+                            <p>WhatsApp <br/> <p style={{color:'#969696'}}>081386727078</p></p>
+                            <p className='mx-3'>Line <br/> <p style={{color:'#969696'}}>@rc_motogarage</p></p>
+                            <p>Kantor kami <br/> <p style={{color:'#969696'}}>RC Serpong Ruko Medrisio 3, Jl. Boulevard iL Lago No.21, Cihuni, Pagedangan, Tangerang Regency, Banten 15332</p></p>
+                        </div>
                         </div>
                     </div>
 

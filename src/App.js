@@ -14,7 +14,8 @@ import ManajemenTransaksi from './pages/ManajemenTransaksi';
 import ProductPage from './pages/Product';
 import ProductByCategory from './pages/ProductByCategory';
 import ProductDetail from './pages/ProductDetail';
-import { loginAction} from './redux/action';
+import VerificationPage from './pages/VerificationPage';
+import { loginAction,keepLoginAction} from './redux/action';
 import { productAction } from './redux/action';
 import { productKategori } from './redux/action';
 
@@ -34,20 +35,30 @@ class App extends React.Component {
     
   }
 
-  keeplogin = async ()=>{
-  try {
-      let local = JSON.parse(localStorage.getItem('data'))
-      if(local){
-        let res = await this.props.loginAction(local.email,local.password)
-        if(res.success){
-          this.setState({loading:false})
-        }
-      }else{
-        this.setState({loading:false})
-      }
-  }
-    catch (error){
+  // keeplogin = async ()=>{
+  // try {
+  //     let local = JSON.parse(localStorage.getItem('data'))
+  //     if(local){
+  //       let res = await this.props.loginAction(local.email,local.password)
+  //       if(res.success){
+  //         this.setState({loading:false})
+  //       }
+  //     }else{
+  //       this.setState({loading:false})
+  //     }
+  // }
+  //   catch (error){
+  //     console.log(error)
+  //   }
+  // }
+
+  keeplogin= async ()=>{
+    try {
+      let res = await this.props.keepLoginAction()
+      this.setState({loading:false})
+    }catch(error){
       console.log(error)
+      this.setState({loading:false})
     }
   }
 
@@ -68,6 +79,7 @@ class App extends React.Component {
         <Route path="/produk-detail" element={<ProductDetail nav={this.nav}/>}/>
         <Route path="/detail-artikel" element={<DetailArtikel nav={this.nav}/>}/>
         <Route path="/produk-kategori" element={<ProductByCategory nav={this.nav}/>}/>
+        <Route path="/verification/:token" element={<VerificationPage nav={this.nav}/>}/>
         {
           this.props.role == 'user' ?
           <>
@@ -99,5 +111,5 @@ const mapTopProps =(state)=>{
   }
 }
  
-export default  connect(mapTopProps,{loginAction,productAction,productKategori})(App);
+export default  connect(mapTopProps,{loginAction,productAction,productKategori,keepLoginAction})(App);
 

@@ -2,27 +2,44 @@ import axios from "axios";
 import reactDom from "react-dom";
 import { API_URL } from "../../helper";
 
-export const productAction = (nama,min,max)=>{
+export const productAction = (search=null)=>{
     return async (dispatch) =>{
         try{
             let res;
-            if(nama && min && max){
-                res= await axios.get(`${API_URL}/products?harga_gte=${min}&harga_lte=${max}&brand=${nama}`)                
-            }
-            else if(min&&max){
-                res = await axios.get(`${API_URL}/products?harga_gte=${min}&harga_lte=${max}`)
-            }else if(nama){
-                res=await axios.get(`${API_URL}/products?brand=${nama}`)
-            }
-            else{
-                res= await axios.get(`${API_URL}/products`)
+            if(search){
+                console.log("input",search)
+                if(search.name){
+                    if(search.price_min > 0 && search.price_max > 0){
+                        res = await axios.get(`${API_URL}/products?price_min=${search.price_min}&price_max=${search.price_max}&name=${search.name}`)
+                    }else{
+                        res = await axios.get(`${API_URL}/products?name=${search.name}`)
+                    }
+                }else{
+                    res = await axios.get(`${API_URL}/products?price_min=${search.price_min}&price_max=${search.price_max}`)  
+                }
+            }else{
+                res = await axios.get(`${API_URL}/products`)
             }
             dispatch({
                 type : "GET_PRODUCTS",
-                payload : res.data
+                payload : res.data.dataProducts
             })
         }
         catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export const sortAction = (sort=null) =>{
+    return async (dispatch) =>{
+        try {
+            let res=await axios.get((`${API_URL}/products?_sort=${sort.field}&_order=${sort.sortType}`))
+            dispatch({
+                type:"GET_PRODUCTS",
+                payload: res.data.dataProducts
+            })
+        }catch(error){
             console.log(error)
         }
     }
@@ -42,3 +59,5 @@ export const productKategori = (kat) =>{
         }
     }
 }
+
+

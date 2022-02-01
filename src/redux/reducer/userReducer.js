@@ -13,7 +13,11 @@ export const userReducer = (state=INITIAL_STATE,action)=>{
             console.log('data',action.payload)
             return {
                 ...state,
-                ...action.payload,
+                id: action.payload.idusers,
+                username: action.payload.username,
+                email: action.payload.email,
+                role:action.payload.role,
+                status:action.payload.status,
             }
         case "UPDATE_CART":
             return {

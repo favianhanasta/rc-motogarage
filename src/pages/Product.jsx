@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, CardImg,CardText, CardBody, CardTitle, Button, CardFooter, Input, InputGroup, InputGroupText, Label } from 'reactstrap';
 import carousel from '../assets/carousel_product.png'
-import { productAction } from '../redux/action';
+import { productAction,sortAction } from '../redux/action';
 
 class ProductPage extends React.Component {
     constructor(props) {
@@ -19,14 +19,14 @@ class ProductPage extends React.Component {
         return this.props.product.slice(page>1? (page-1)*6:page-1,page*6).map((val,idx)=>{
             return (
                 <div className='col-md-4 mb-4'>
-                    <Link to= {`/produk-detail?id=${val.id}`} style={{textDecoration:"none", color:"black"}}>
+                    <Link to= {`/produk-detail?idproduct=${val.idproduct}`} style={{textDecoration:"none", color:"black"}}>
                     <Card className='shadow px-2'  style={{background : 'white',border:'none',borderRadius:20}}>
                         <div style={{height:250, justifyContent:'center',display:'flex'}}>
-                        <CardImg className='zoom' alt='cardimg' top  src={val.image[0]} style={{width:"70%",alignSelf:'center',marginTop:'10%',marginBottom:'10%',display:'inline-block',borderRadius:20}}/>
+                        <CardImg className='zoom' alt='cardimg' top  src={val.images[0].url} style={{width:"70%",alignSelf:'center',marginTop:'10%',marginBottom:'10%',display:'inline-block',borderRadius:20}}/>
                         </div>
                         <CardBody>
-                            <div style={{height:100}}>
-                            <CardTitle className='h5' >{val.nama}</CardTitle>
+                            <div style={{height:75}}>
+                            <CardTitle style={{fontSize:20}} >{val.name}</CardTitle>
                             </div>
                             <CardTitle className="h5" style={{fontWeight:'bold'}}>IDR {val.harga.toLocaleString('id-ID')}</CardTitle>
                             <CardText>
@@ -64,9 +64,11 @@ class ProductPage extends React.Component {
     }
 
     btCari =()=>{
-        let hrgMin = parseInt(this.hrgMin.value)
-        let hrgMax = parseInt(this.hrgMax.value)
-        this.props.productAction(this.filBrand.value,hrgMin,hrgMax)
+        this.props.productAction({
+            name : this.filBrand.value,
+            price_min : this.hrgMin.value,
+            price_max : this.hrgMax.value
+        })
         this.setState({page:1})
     }
 
@@ -75,6 +77,13 @@ class ProductPage extends React.Component {
         this.hrgMax.value=null
         this.hrgMin.value=null
         this.filBrand.value=''
+    }
+
+    handleSort =(e)=>{
+        this.props.sortAction({
+            field : e.target.value.split('-')[0],
+            sortType : e.target.value.split('-')[1]
+        })
     }
 
     render() {
@@ -93,16 +102,24 @@ class ProductPage extends React.Component {
                             <span className="material-icons mx-1" style={{color:'#ED1B24'}}>sort</span>
                         </div>
                         <div className='my-2'>
-                        <Label for='nm'>Brand</Label>
-                        <Input id='nm' type='text' placeholder='Search by brand' innerRef={(e)=>this.filBrand=e}/>
+                        <Label for='nm'>Name</Label>
+                        <Input id='nm' type='text' placeholder='Search by Product Name' innerRef={(e)=>this.filBrand=e}/>
                         </div>
                         <Label for='hrg'>Harga</Label>
                         <div className='d-flex'>
                             <InputGroup>
-                            <Input id='hrg' placeholder='Minimum' className='mx-1' innerRef={(e)=>this.hrgMin=e}/>
-                            <Input placeholder='Maximum' innerRef={(e)=>this.hrgMax=e}/>
+                            <Input id='hrg' placeholder='Minimum' className='mx-1' innerRef={(e)=>this.hrgMin=e} type='number'/>
+                            <Input placeholder='Maximum' innerRef={(e)=>this.hrgMax=e} type='number'/>
                             </InputGroup>
                         </div>
+                        <Label for='id'>Sort</Label>
+                        <Input id="sort" type="select" style={{width:"150px"}}  onChange={this.handleSort}>  
+                            <option value="harga-asc">Harga Asc</option>
+                            <option value="harga-desc">Harga Desc</option>
+                            <option value="name-asc">A-Z</option>
+                            <option value="name-desc">Z-A</option>
+                            <option value="idproduct-asc">Reset</option>
+                        </Input>
                         <Button className='my-3' color='danger' outline onClick={this.btCari}>Cari</Button>
                         <Button color='primary' outline onClick={this.btShowAll}>Tampilkan Semua</Button>
                         </Card>
@@ -128,5 +145,5 @@ const mapToProps =(state)=>{
     }
 }
  
-export default connect(mapToProps,{productAction})(ProductPage);
+export default connect(mapToProps,{productAction,sortAction})(ProductPage);
 

@@ -23,10 +23,10 @@ class ManajemenProduk extends React.Component {
             return (
                 <tr className='text-center' style={{alignItems:"center"}}>
                     <td style={{color:'red'}}>{index+1}</td>
-                    <td style={{width:'15%'}}><img src={value.image[0]} alt="Product" width='100%' /></td>
-                    <td>{value.nama}</td>
+                    <td style={{width:'15%'}}><img src={value.images[0].url} alt="Product" width='100%' /></td>
+                    <td>{value.name}</td>
                     <td>{value.brand}</td>
-                    <td>{value.kategori}</td>
+                    <td>{value.category}</td>
                     <td> IDR {(value.harga).toLocaleString('id-ID')}</td>
                     <td style={{width:'10%'}}>
                         <Button type="button" className="m-2" style={{width:100}} onClick={()=>this.detailToggle(value)}>
@@ -59,7 +59,7 @@ class ManajemenProduk extends React.Component {
     }
 
     btDelete = (index) =>{
-        let id =  this.props.product[index].id;
+        let id =  this.props.product[index].idproduct;
         axios.delete(`${API_URL}/products/${id}`)
         .then((res)=>{
             this.props.productAction()

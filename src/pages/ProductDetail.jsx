@@ -27,7 +27,7 @@ class ProductDetail extends React.Component {
         
         axios.get(`${API_URL}/products${window.location.search}`)
         .then((res)=>{
-            this.setState({detail:res.data[0]})
+            this.setState({detail:res.data.dataProducts[0]})
             this.setState({
                 harga: this.state.detail.harga.toLocaleString('id-ID')
             })
@@ -40,7 +40,7 @@ class ProductDetail extends React.Component {
 
     onBtCart = async ()=>{
         let {detail, qty, selectedType} = this.state
-        if(this.props.idUser){
+        if(this.props.username){
             if(this.state.selectedType.type){
                 let data ={
                     nama : detail.nama,
@@ -88,8 +88,8 @@ class ProductDetail extends React.Component {
     
     
     render() {
+        console.log("sd",this.state.detail)
         this.props.nav('/detail-produk')
-        console.log('sd',(this.props.idUser))
         return ( 
             <div className='container' style={{paddingTop:'5%'}}>
                 <Modal isOpen={this.state.loginOpen} toggle={()=>this.setState({loginOpen:false})} centered>
@@ -125,18 +125,18 @@ class ProductDetail extends React.Component {
                 <div className='row py-4'>
                     <div className='col-md-4' >
                     {
-                        this.state.detail.id &&
+                        this.state.detail.idproduct &&
                         <>
                             <div>
-                            <img className="bg-white rounded" src={this.state.detail.image[this.state.selectedIdImg]} width="100%" />
+                            <img className="bg-white rounded" src={this.state.detail.images[this.state.selectedIdImg].url} width="100%" />
                             <div className='d-flex my-2 justify-content-center'>
                                 {
-                                    this.state.detail.image.map((item,i)=>{
+                                    this.state.detail.images.map((item,i)=>{
                                         return(
                                             <div className='m-2 shadow' onClick={()=>this.setState({selectedIdImg : i})}
                                             style={{width:'20%', borderRadius:'20%',padding:'1%',cursor:'pointer',backgroundColor:this.state.selectedIdImg==i? '#ED1B24' : 'white'}}
                                             >
-                                                <img src={item}  style={{width:'100%',borderRadius:'20%'}}/>
+                                                <img src={item.url}  style={{width:'100%',borderRadius:'20%'}}/>
                                             </div>
                                             )
                                         })  
@@ -147,7 +147,7 @@ class ProductDetail extends React.Component {
                     }
                     </div>
                     <div className='col-md-8'>
-                        <h2 style={{fontWeight:'600'}}>{this.state.detail.nama}</h2>
+                        <h2 style={{fontWeight:'600'}}>{this.state.detail.name}</h2>
                         <h1 style={{color:'#ED1B24'}}>IDR {this.state.harga}</h1>
                         <p style={{width:'80%',textAlign:'justify'}}><a style={{fontWeight:'bold'}}>Deskripsi : </a><br/> {this.state.detail.deskripsi}</p>
                         <div style={{height:150}}>
@@ -191,7 +191,7 @@ class ProductDetail extends React.Component {
 const mapToprops =(state)=>{
     return {
         cart : state.userReducer.cart,
-        idUser  : state.userReducer.id
+        username  : state.userReducer.username
     }
 }
 

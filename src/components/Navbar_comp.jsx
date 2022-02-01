@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Input, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, UncontrolledDropdown, Spinner, Badge } from 'reactstrap';
 import logo from '../assets/rc.png';
+import rc_logo from '../assets/rc_logo.png';
 import { connect } from 'react-redux';
 import { logoutAction } from '../redux/action';
 
@@ -34,17 +35,17 @@ class NavbarComponent extends React.Component {
             <nav className={ this.props.path == '/'?  this.state.navbar ? 'navbar active home container-fluid ' : 'navbar home container-fluid' : 'navbar container-fluid '} >
                 <NavbarBrand style={{marginLeft:'10%'}} onClick={()=>this.props.nav('/')}>
                     <Link to="/">
-                    <img src={logo} width='100px'/>
+                        { this.props.path == '/'? <img src={logo} width='100px'/> : <img src={rc_logo} width='30%'/> }
                     </Link>
                 </NavbarBrand>
                 <Nav>
-                    <NavItem >
-                        <Link  to='/produk' style={{textDecoration:'none'}}>
-                        <NavLink style={{color:'white'}} onClick={()=>this.props.nav('/produk')}>
-                            Products
-                        </NavLink>
-                        </Link>
-                    </NavItem>
+                <NavItem >
+                    <Link  to='/produk' style={{textDecoration:'none'}}>
+                    <NavLink style={{color:'white'}} onClick={()=>this.props.nav('/produk')}>
+                        Products
+                    </NavLink>
+                    </Link>
+                </NavItem>
                     {
                         this.props.role=='user'?
                         <NavItem >
@@ -68,7 +69,7 @@ class NavbarComponent extends React.Component {
                         this.props.username ?
                         <NavItem className="align-items-center">
                             <UncontrolledDropdown>
-                            <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'White'}}>Hello, <a style={{color:'#ED1B24'}}>{this.props.username}</a></DropdownToggle>
+                            <DropdownToggle className='mx-2 d-flex align-items-center' caret nav outline style={{color:'White'}}>Hello, <span className='mx-2' style={{color:'#ED1B24',fontWeight:"bold"}}> {this.props.username}</span></DropdownToggle>
                             {
                                 this.props.role=='user' ?
                                 <DropdownMenu end>
@@ -103,7 +104,7 @@ class NavbarComponent extends React.Component {
                                             Manajemen Artikel
                                         </DropdownItem>
                                     </Link>
-                                    <Link to='' style={{textDecoration:'none'}}>
+                                    <Link to='/' style={{textDecoration:'none'}}>
                                         <DropdownItem onClick={()=>{
                                                 localStorage.removeItem("data");
                                                 this.props.logoutAction()
